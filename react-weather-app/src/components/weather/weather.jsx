@@ -91,8 +91,10 @@ export default function Weather() {
           <div className="temp-container">
             <h1 className="temp">
               {Math.round(weatherData?.main?.temp - 273.15)}
-              <span>ºC</span>
+              <span>ºc</span>
             </h1>
+            <p>Feels like {weatherData?.main?.feels_like - 273.15}ºc</p>
+            <img src={weatherData?.weather[0].icon} />
           </div>
         </div>
       )}
