@@ -16,13 +16,24 @@ export default function Weather() {
       const data = await response.json();
       console.log(data);
 
-      if (data) setLoading(false), setWeatherData(data);
+      if (data) {
+        setLoading(false), setWeatherData(data);
+      }
     } catch (error) {
       console.log(error);
       setLoading(false);
       setError(error.message);
     }
   }
+
+  useEffect(() => {
+    fetchWeatherData("London");
+  }, []);
+
+  // const description = weatherData?.weather[0]?.description;
+  // const formattedDescription = description
+  //   .split(" ")
+  //   .map((word) => word.charAt(0).toUpperCase() + word.slice(1).join(" "));
 
   function handleSearch() {
     fetchWeatherData(search);
@@ -35,13 +46,26 @@ export default function Weather() {
     });
   }
 
-  if (error) {
-    return <div>Error occurred in retrieving data. </div>;
+  function formatter(number) {
+    return (
+      // Special case: numbers between 11 and 13 always use 'th'
+      number +
+      (number >= 11 && number <= 13
+        ? "th"
+        : // For other numbers, use a conditional expression based on the last digit
+        number % 10 === 1
+        ? "st"
+        : number % 10 === 2
+        ? "nd"
+        : number % 10 === 3
+        ? "rd"
+        : "th")
+    );
   }
 
-  useEffect(() => {
-    fetchWeatherData("London");
-  }, []);
+  if (error) {
+    return <div>Error occurred in retrieving data.</div>;
+  }
 
   return (
     <div className="container">
@@ -50,17 +74,27 @@ export default function Weather() {
         setSearch={setSearch}
         handleSearch={handleSearch}
       />
-      <div className="weather-info">
-        {loading && <p>Loading data...</p>}
-        <p>{`${getCurrentDate()}th`}</p>
-        <h1 className="">{weatherData?.name}</h1>
+      {weatherData && (
+        <div className="info-container">
+          <div className="weather-info">
+            {loading && <p>Loading data...</p>}
+            <p className="date">{formatter(getCurrentDate())}</p>
+            <h1 className="location">
+              {weatherData?.name}, {weatherData?.sys?.country}
+            </h1>
 
-        <h2>Description</h2>
-      </div>
-      {/* Icon */}
-      <div>
-        <h1>Temperature</h1>
-      </div>
+            <h2 className="description">
+              {weatherData?.weather[0]?.description.toUpperCase()}
+            </h2>
+          </div>
+          {/* Icon */}
+          <div className="temp-conta298iner">
+            <h1 className="temp">
+              {Math.round(weatherData?.main?.temp - 273.15) + "ºC"}
+            </h1>
+          </div>
+        </div>
+      )}
     </div>
     //
     // Weather for the next 4 days
