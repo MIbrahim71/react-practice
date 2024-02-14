@@ -4,7 +4,7 @@ import Search from "../search/search";
 export default function Weather() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
   const [weatherData, setWeatherData] = useState("");
 
   async function fetchWeatherData(input) {
@@ -88,9 +88,10 @@ export default function Weather() {
             </h2>
           </div>
           {/* Icon */}
-          <div className="temp-conta298iner">
+          <div className="temp-container">
             <h1 className="temp">
-              {Math.round(weatherData?.main?.temp - 273.15) + "ºC"}
+              {Math.round(weatherData?.main?.temp - 273.15)}
+              <span>ºC</span>
             </h1>
           </div>
         </div>

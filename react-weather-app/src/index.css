@@ -71,13 +71,15 @@ body {
 }
 
 .info-container {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   gap: 100px;
 }
 
 .weather-info {
   padding: 20px;
+  padding-left: 0px;
 }
 
 .date {
@@ -98,8 +100,14 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 35px;
 }
 
 .temp {
+  font-size: 60px;
+}
+
+.temp span {
   font-size: 50px;
+  font-weight: 200;
 }
