@@ -31,10 +31,8 @@ export default function Weather() {
     fetchWeatherData("London");
   }, []);
 
-  // const description = weatherData?.weather[0]?.description;
-  // const formattedDescription = description
-  //   .split(" ")
-  //   .map((word) => word.charAt(0).toUpperCase() + word.slice(1).join(" "));
+  // const description =
+  // const formattedDescription =
 
   function handleSearch() {
     fetchWeatherData(search);
@@ -58,7 +56,10 @@ export default function Weather() {
             </h1>
 
             <h2 className="description">
-              {weatherData?.weather[0]?.description}
+              {weatherData?.weather[0]?.description
+                .split(" ")
+                .map((word) => word[0].toUpperCase() + word.slice(1))
+                .join(" ")}
             </h2>
           </div>
 
