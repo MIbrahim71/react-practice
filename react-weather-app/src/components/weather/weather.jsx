@@ -17,8 +17,10 @@ export default function Weather() {
       const data = await response.json();
       console.log(data);
 
-      if (data) {
-        setLoading(false), setWeatherData(data);
+      setLoading(false), setWeatherData(data), setError(false);
+
+      if (!data) {
+        throw new Error("Failed to fetch data.");
       }
     } catch (error) {
       console.log(error);
@@ -31,11 +33,12 @@ export default function Weather() {
     fetchWeatherData("London");
   }, []);
 
-  // const description =
-  // const formattedDescription =
-
   function handleSearch() {
     fetchWeatherData(search);
+  }
+
+  if (error) {
+    return <div>Error occurred in retrieving data.</div>;
   }
 
   return (
@@ -45,7 +48,7 @@ export default function Weather() {
         setSearch={setSearch}
         handleSearch={handleSearch}
       />
-      {error && <div>Error occurred in retrieving data.</div>}
+
       {weatherData && (
         <div className="info-container">
           <div className="weather-info">
@@ -64,6 +67,10 @@ export default function Weather() {
           </div>
 
           <div className="temp-container">
+            <img
+              src={`../../../public/icons/${weatherData?.weather[0].icon}@2x.png`}
+              alt=""
+            />
             <div className="temp-only">
               <h1 className="temp">
                 {Math.round(weatherData?.main?.temp - 273.15)}
@@ -74,10 +81,6 @@ export default function Weather() {
                 ºc
               </p>
             </div>
-            <img
-              src={`../../../public/icons/${weatherData?.weather[0].icon}@2x.png`}
-              alt=""
-            />
           </div>
         </div>
       )}

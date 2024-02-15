@@ -92,7 +92,7 @@ body {
 }
 
 .location {
-  font-size: 50px;
+  font-size: 45px;
   margin: 0;
   max-width: 100%;
   color: rgb(43, 58, 103);
@@ -107,6 +107,9 @@ body {
   justify-content: center;
   align-items: center;
   padding-bottom: 10px;
+  padding-right: 20px;
+  border: 1px solid gray;
+  border-radius: 40px;
 }
 
 .temp-only {
@@ -121,17 +124,17 @@ body {
 }
 
 .temp span {
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 200;
 }
 
 .temp-container p {
   font-style: italic;
+  font-size: 15px;
   margin: 0;
 }
 
 .temp-container img {
   width: 110px;
   height: auto;
-  margin-left: 30px;
 }
