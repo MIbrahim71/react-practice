@@ -61,7 +61,7 @@ body {
 .search-engine button {
   border: none;
   border-radius: 8px;
-  background-color: black;
+  background-color: rgb(43, 58, 103);
   color: white;
   font-size: 20px;
   outline: none;
@@ -71,7 +71,7 @@ body {
 }
 
 .info-container {
-  width: 100%;
+  max-width: 100%;
   display: flex;
   justify-content: space-evenly;
   gap: 100px;
@@ -91,6 +91,7 @@ body {
   font-size: 50px;
   margin: 0;
   max-width: 100%;
+  color: rgb(43, 58, 103);
 }
 
 .description {
@@ -99,14 +100,20 @@ body {
 
 .temp-container {
   display: flex;
-  flex-direction: column;
+
   justify-content: center;
   align-items: center;
 }
 
+.temp-only {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
 .temp {
   font-size: 80px;
   margin: 0;
+  color: rgb(43, 58, 103);
 }
 
 .temp span {
@@ -116,4 +123,11 @@ body {
 
 .temp-container p {
   font-style: italic;
+  margin: 0;
+}
+
+.temp-container img {
+  width: 110px;
+  height: auto;
+  margin-left: 30px;
 }

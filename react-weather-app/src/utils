@@ -1,0 +1,23 @@
+export function getCurrentDate() {
+  return new Date().toLocaleDateString("en-GB", {
+    weekday: "long",
+    day: "numeric",
+  });
+}
+
+export function formatter(number) {
+  return (
+    // Special case: numbers between 11 and 13 always use 'th'
+    number +
+    (number >= 11 && number <= 13
+      ? "th"
+      : // For other numbers, use a conditional expression based on the last digit
+      number % 10 === 1
+      ? "st"
+      : number % 10 === 2
+      ? "nd"
+      : number % 10 === 3
+      ? "rd"
+      : "th")
+  );
+}

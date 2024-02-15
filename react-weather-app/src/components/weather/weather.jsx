@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Search from "../search/search";
+import { getCurrentDate, formatter } from "../../utils";
 
 export default function Weather() {
   const [search, setSearch] = useState("");
@@ -22,7 +23,7 @@ export default function Weather() {
     } catch (error) {
       console.log(error);
       setLoading(false);
-      setError(error.message);
+      setError(true);
     }
   }
 
@@ -39,34 +40,6 @@ export default function Weather() {
     fetchWeatherData(search);
   }
 
-  function getCurrentDate() {
-    return new Date().toLocaleDateString("en-GB", {
-      weekday: "long",
-      day: "numeric",
-    });
-  }
-
-  function formatter(number) {
-    return (
-      // Special case: numbers between 11 and 13 always use 'th'
-      number +
-      (number >= 11 && number <= 13
-        ? "th"
-        : // For other numbers, use a conditional expression based on the last digit
-        number % 10 === 1
-        ? "st"
-        : number % 10 === 2
-        ? "nd"
-        : number % 10 === 3
-        ? "rd"
-        : "th")
-    );
-  }
-
-  if (error) {
-    return <div>Error occurred in retrieving data.</div>;
-  }
-
   return (
     <div className="container">
       <Search
@@ -74,6 +47,7 @@ export default function Weather() {
         setSearch={setSearch}
         handleSearch={handleSearch}
       />
+      {error && <div>Error occurred in retrieving data.</div>}
       {weatherData && (
         <div className="info-container">
           <div className="weather-info">
@@ -84,17 +58,25 @@ export default function Weather() {
             </h1>
 
             <h2 className="description">
-              {weatherData?.weather[0]?.description.toUpperCase()}
+              {weatherData?.weather[0]?.description}
             </h2>
           </div>
-          {/* Icon */}
+
           <div className="temp-container">
-            <h1 className="temp">
-              {Math.round(weatherData?.main?.temp - 273.15)}
-              <span>ºc</span>
-            </h1>
-            <p>Feels like {weatherData?.main?.feels_like - 273.15}ºc</p>
-            <img src={weatherData?.weather[0].icon} />
+            <div className="temp-only">
+              <h1 className="temp">
+                {Math.round(weatherData?.main?.temp - 273.15)}
+                <span>ºc</span>
+              </h1>
+              <p>
+                Feels like {Math.round(weatherData?.main?.feels_like - 273.15)}
+                ºc
+              </p>
+            </div>
+            <img
+              src={`../../../public/icons/${weatherData?.weather[0].icon}@2x.png`}
+              alt=""
+            />
           </div>
         </div>
       )}
