@@ -17,10 +17,11 @@ export default function Weather() {
       const data = await response.json();
       console.log(data);
 
-      setLoading(false), setWeatherData(data), setError(false);
+      setLoading(false), setWeatherData(data);
 
-      if (!data) {
-        throw new Error("Failed to fetch data.");
+      if (!data || data.cod === "404") {
+        setError("Location not found. Please enter a valid location");
+        return;
       }
     } catch (error) {
       console.log(error);
@@ -34,12 +35,16 @@ export default function Weather() {
   }, []);
 
   function handleSearch() {
+    if (!search.trim()) {
+      setError("Please enter a valid location");
+      return;
+    }
     fetchWeatherData(search);
   }
 
-  if (error) {
-    return <div>Error occurred in retrieving data.</div>;
-  }
+  // if (error) {
+  //   return <div className="error">{error}</div>;
+  // }
 
   return (
     <div className="container">
@@ -48,8 +53,9 @@ export default function Weather() {
         setSearch={setSearch}
         handleSearch={handleSearch}
       />
+      {error && <div className="error">{error}</div>}
 
-      {weatherData && (
+      {weatherData ? (
         <div className="info-container">
           <div className="weather-info">
             {loading && <p>Loading data...</p>}
@@ -83,9 +89,9 @@ export default function Weather() {
             </div>
           </div>
         </div>
+      ) : (
+        <div className="error">{error}</div>
       )}
     </div>
-    //
-    // Weather for the next 4 days
   );
 }

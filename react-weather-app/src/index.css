@@ -17,7 +17,7 @@ body {
   );
   background: -moz-linear-gradient(
     180deg,
-    hsla(169, 93%, 84%, 1) 0%,
+    rgb(117, 165, 157) 0%,
     hsla(200, 90%, 51%, 1) 84%
   );
   background: -webkit-linear-gradient(
@@ -89,6 +89,7 @@ body {
 .date {
   margin-bottom: 5px;
   font-size: 20px;
+  font-weight: 200;
 }
 
 .location {
@@ -99,7 +100,9 @@ body {
 }
 
 .description {
-  font-weight: 200;
+  font-size: 25px;
+  font-weight: 400;
+  margin-top: 5px;
 }
 
 .temp-container {
@@ -130,6 +133,7 @@ body {
 
 .temp-container p {
   font-style: italic;
+  font-weight: 200;
   font-size: 15px;
   margin: 0;
 }
@@ -137,4 +141,12 @@ body {
 .temp-container img {
   width: 110px;
   height: auto;
+}
+
+.error {
+  font-size: 30px;
+  color: rgb(43, 58, 103);
+  background-color: white;
+  padding: 5px 15px;
+  border-radius: 10px;
 }
